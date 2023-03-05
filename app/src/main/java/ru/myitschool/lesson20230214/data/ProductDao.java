@@ -16,6 +16,9 @@ public interface ProductDao {
     @Query("SELECT * FROM productdata")
     List<ProductData> getAll();
 
+    @Query("SELECT * FROM productdata WHERE title like:search or description like :search")
+    List<ProductData> getFromLike(String search);
+
     @Insert
     void insertAll(ProductData... productData);
 

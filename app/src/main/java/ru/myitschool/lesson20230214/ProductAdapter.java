@@ -3,6 +3,8 @@ package ru.myitschool.lesson20230214;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,8 +15,40 @@ import java.util.List;
 
 import ru.myitschool.lesson20230214.databinding.ItemProductBinding;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
-    private static final ArrayList<ProductData> data = new ArrayList<>();
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> implements Filterable {
+    private static List<ProductData> data = new ArrayList<>();
+    private static List<ProductData> filterData =new ArrayList<>() ;
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String charString = constraint.toString();
+                if (charString.isEmpty()) {
+                    filterData = data;
+                } else {
+                    List<ProductData> filteredList = new ArrayList<>();
+                    for (ProductData row : data) {
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase())
+                                || row.getDescription().contains(charString)) {
+                            filteredList.add(row);
+                        }
+                    }
+                    filterData = filteredList;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filterData;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults results) {
+                filterData = (ArrayList<ProductData>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 
     interface OnProductDataClickListener {
         void onProductClick(ViewHolder holder);
@@ -36,14 +70,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 .getRoot());
     }
 
+
     public void setData(List<ProductData> newData) {
         data.clear();
         data.addAll(newData);
+
         notifyDataSetChanged();
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+       // holder.bind(filterData.get(position));
         holder.bind(data.get(position));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +92,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public int getItemCount() {
+       // return filterData.size();
         return data.size();
     }
 

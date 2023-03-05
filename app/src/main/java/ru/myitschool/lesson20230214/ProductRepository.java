@@ -48,7 +48,12 @@ public class ProductRepository {
         products.add(productData);
 
     }
+public List<ProductData> getLike(String search){
+        products.clear();
+        products.addAll(roomdb.productDao().getFromLike(search));
+       return products;
 
+    }
 
     public void removeByPosition(ProductData product) {
         //TODO delete product

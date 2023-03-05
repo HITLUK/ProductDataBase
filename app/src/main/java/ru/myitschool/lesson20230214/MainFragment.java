@@ -2,6 +2,8 @@ package ru.myitschool.lesson20230214;
 
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,17 +12,22 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ru.myitschool.lesson20230214.databinding.FragmentMainBinding;
 
 
 public class MainFragment extends Fragment {
     private final ProductRepository repository = ProductRepository.getInstance(getContext());
-
+    SearchView searchView;
+    private static List<ProductData> filterList = new ArrayList<>();
     ProductAdapter.OnProductDataClickListener productClickListener = new ProductAdapter.OnProductDataClickListener() {
 
         @Override
@@ -50,10 +57,10 @@ public class MainFragment extends Fragment {
             // repository.removeByPosition(viewHolder.getAdapterPosition());
             repository.removeByPosition(repository.getProducts().get(viewHolder.getAdapterPosition()));
             adapter.removeItemByPosition(viewHolder.getAdapterPosition());
-           // Log.d("Remove ", "" + repository.getProducts().size());
+            // Log.d("Remove ", "" + repository.getProducts().size());
         }
     };
-  //  private static int count;
+    //  private static int count;
 
 
     @Nullable
@@ -62,6 +69,26 @@ public class MainFragment extends Fragment {
 
         FragmentMainBinding binding = FragmentMainBinding.inflate(inflater, container, false);
         binding.container.setAdapter(adapter);
+
+        binding.input.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // filterList = ;
+                adapter.setData(repository.getLike("%"+s+"%"));
+                //adapter.notifyDataSetChanged();
+                //repository.getLike(s+"");
+                //TextView textView = findViewById(R.id.textView);
+                //textView.setText(s);
+            }
+        });
+
         new ItemTouchHelper(swipeToDelete).attachToRecyclerView(binding.container);
         binding.add.setOnClickListener(v -> {
             getParentFragmentManager()
@@ -73,14 +100,17 @@ public class MainFragment extends Fragment {
             Log.d("Add", "" + repository.getProducts().size());
             adapter.setData(repository.getProducts());
         });
-        adapter.setData(repository.getProducts());
-        for (ProductData p:repository.getProducts()) {
-            Log.d("products",p.getId()+" "+p.getName()+" " + p.getDescription()+" "+p.getCount()+"\n");
-        }
+        if (binding.input.getText().toString().isEmpty()) {
+            adapter.setData(repository.getProducts());
 
+        }
+        for (ProductData p : repository.getProducts()) {
+            Log.d("products", p.getId() + " " + p.getName() + " " + p.getDescription() + " " + p.getCount() + "\n");
+        }
         return binding.getRoot();
 
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -96,4 +126,6 @@ public class MainFragment extends Fragment {
                     .commit();
         }
     }
+
+
 }
