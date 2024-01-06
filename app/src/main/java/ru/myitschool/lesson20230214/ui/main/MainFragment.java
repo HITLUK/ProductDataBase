@@ -1,5 +1,7 @@
 package ru.myitschool.lesson20230214.ui.main;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -27,16 +29,9 @@ public class MainFragment extends Fragment {
     private final ProductRepository repository = ProductRepository.getInstance();
     private final ProductAdapter.OnProductDataClickListener productClickListener = holder -> {
         ProductData data = repository.getCachedProductByPosition(holder.getAdapterPosition());
-        Toast.makeText(
-                getContext(),
-                "Был выбран пункт " + data.getName(),
-                Toast.LENGTH_SHORT
-        ).show();
-        getParentFragmentManager()
-                .beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.rootContainer, DetailFragment.newInstance(data))
-                .commit();
+        Intent bri = new Intent(Intent.ACTION_VIEW, Uri.parse(data.getDescription()));
+        startActivity(bri);
+
     };
     private final ProductAdapter adapter = new ProductAdapter(productClickListener);
     private final ItemTouchHelper.SimpleCallback swipeToDelete = new ItemTouchHelper.SimpleCallback(

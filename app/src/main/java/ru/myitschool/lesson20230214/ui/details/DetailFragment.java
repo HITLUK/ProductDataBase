@@ -40,7 +40,7 @@ public class DetailFragment extends Fragment {
         if (data != null) {
             binding.title.setText(data.getName());
             binding.description.setText(data.getDescription());
-            binding.count.setText(String.valueOf(data.getCount()));
+
         }
         binding.back.setOnClickListener(v -> requireActivity().onBackPressed());
         binding.saveoradd.setText(data == null ? "Add" : "Save");
@@ -51,8 +51,7 @@ public class DetailFragment extends Fragment {
     private void applyChange(final ProductData data) {
         ProductData newProduct = new ProductData(
                 binding.title.getText().toString(),
-                binding.description.getText().toString(),
-                Integer.valueOf(binding.count.getText().toString())
+                binding.description.getText().toString()
         );
         if (data != null) {
             newProduct.setId(data.getId());

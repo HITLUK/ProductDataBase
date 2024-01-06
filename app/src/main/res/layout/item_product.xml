@@ -31,11 +31,6 @@
             tools:maxLines="3"
             tools:text="@tools:sample/lorem/random" />
 
-        <TextView
-            android:id="@+id/count"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            tools:text="@tools:sample/us_phones" />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

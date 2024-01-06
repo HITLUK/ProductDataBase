@@ -24,7 +24,7 @@ public class ProductData implements Serializable {
     private int count;
 
 
-    public ProductData(String name, String description, int count) {
+    public ProductData(String name, String description) {
         this.id = 0;
         this.name = name;
         this.description = description;

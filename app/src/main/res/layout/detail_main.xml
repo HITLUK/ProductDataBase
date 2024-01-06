@@ -18,20 +18,20 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name Product"
+            android:text="Наименование ресурса"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
         <EditText
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Input Text"
+            android:hint="Введите название"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Description"
+            android:text="Ссылка"
 
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
 
@@ -42,22 +42,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:hint="Input Description"
+            android:inputType="textUri"
+            android:hint="Введите URL"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             tools:maxLines="3" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Input count"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
-        <EditText
-            android:id="@+id/count"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            tools:text="@tools:sample/us_phones" />
         <LinearLayout
 
             android:layout_width="match_parent"
@@ -70,14 +60,14 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="Back" />
+                android:text="Назад" />
             <Button
                 android:id="@+id/saveoradd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="Save" />
+                android:text="Сохранить" />
 
 
         </LinearLayout>

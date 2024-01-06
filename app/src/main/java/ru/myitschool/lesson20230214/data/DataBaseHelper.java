@@ -7,9 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import androidx.annotation.Nullable;
-import ru.myitschool.lesson20230214.data.ProductData;
-
 import java.util.ArrayList;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
@@ -58,8 +55,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         do {
             result.add(new ProductData(
                     cursor.getString(NUM_COLUMN_TITLE),
-                    cursor.getString(NUM_COLUMN_DESCRIPTION),
-                    cursor.getInt(NUM_COLUMN_COUNT)
+                    cursor.getString(NUM_COLUMN_DESCRIPTION)
             ));
         } while (cursor.moveToNext());
         cursor.close();

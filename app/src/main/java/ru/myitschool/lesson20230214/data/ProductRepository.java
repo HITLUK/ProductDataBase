@@ -1,16 +1,10 @@
 package ru.myitschool.lesson20230214.data;
 
-import android.content.Context;
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
-import androidx.room.Room;
-
-import ru.myitschool.lesson20230214.App;
 
 public class ProductRepository {
 
@@ -24,18 +18,9 @@ public class ProductRepository {
 
 
         productDao = database.productDao();
-        // dataBaseHelper = new DataBaseHelper(context);
 
-        for (int i = 0; i < 1; i++) {
-            productDao.insertAll(
-                    new ProductData("Хлеб", "бородинский", 45),
-                    new ProductData("Молоко", "жирность 3,5", 60),
-                    new ProductData("Сыр", "Российский", 50)
-            );
-        }
-        //  dataBaseHelper.add(new ProductData("Хлеб", "бородинский", 45));
-        //   dataBaseHelper.add(new ProductData("Молоко", "жирность 3,5", 60));
-        //  dataBaseHelper.add(new ProductData("Сыр", "Российский", 50));
+
+
     }
 
     public ProductData getCachedProductByPosition(int position) {

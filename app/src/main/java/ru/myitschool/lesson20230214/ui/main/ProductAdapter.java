@@ -117,7 +117,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 itemBinding.description.setVisibility(View.VISIBLE);
                 itemBinding.description.setText(product.getDescription());
             }
-            itemBinding.count.setText(String.valueOf(product.getCount()));
+
         }
     }
 }
